@@ -1,0 +1,25 @@
+# Definición del grupo IAM
+resource "aws_iam_group" "remote_group_test" {
+  name = "remote_group_test"  # Nombre del grupo IAM
+}
+
+# Política para Amazon EC2 Full Access (Administrar instancias)
+resource "aws_iam_policy_attachment" "attach_ec2_full_access" {
+  name       = "attach-ec2-full-access"
+  groups     = [aws_iam_group.remote_group_test.name]  
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+}
+
+# Política para Amazon RDS Data Full Access (Administrar los datos)
+resource "aws_iam_policy_attachment" "attach_rds_data_full_access" {
+  name       = "attach-rds-data-full-access"
+  groups     = [aws_iam_group.remote_group_test.name]
+  policy_arn = "arn:aws:iam::aws:policy/AmazonRDSDataFullAccess"
+}
+
+# Política para Amazon RDS Full Access (Administrar recursos RDS)
+resource "aws_iam_policy_attachment" "attach_rds_full_access" {
+  name       = "attach-rds-full-access"
+  groups     = [aws_iam_group.remote_group_test.name]
+  policy_arn = "arn:aws:iam::aws:policy/AmazonRDSFullAccess"
+}
